@@ -1,42 +1,330 @@
-# rider-unstable-highlighting
+# step to re-produce
 
-![Build](https://github.com/izhangzhihao/rider-unstable-highlighting/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+## run the project
 
-## Template ToDo list
-- [x] Create a new [IntelliJ Platform Plugin Template][template] project.
-- [ ] Get familiar with the [template documentation][template].
-- [ ] Verify the [pluginGroup](./gradle.properties), [plugin ID](./src/main/resources/META-INF/plugin.xml) and [sources package](./src/main/kotlin).
-- [ ] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html?from=IJPluginTemplate).
-- [ ] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate) for the first time.
-- [ ] Set the Plugin ID in the above README badges.
-- [ ] Set the [Plugin Signing](https://plugins.jetbrains.com/docs/intellij/plugin-signing.html?from=IJPluginTemplate) related [secrets](https://github.com/JetBrains/intellij-platform-plugin-template#environment-variables).
-- [ ] Set the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html?from=IJPluginTemplate).
-- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
+./gradlew runide
 
-<!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
+## tail the idea log
 
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
+```bash
+tail -f build/idea-sandbox/system/log/idea.log
+```
 
-To keep everything working, do not remove `<!-- ... -->` sections. 
-<!-- Plugin description end -->
+## open sample project with below code
 
-## Installation
+```C#
+namespace MyNamespace;
 
-- Using IDE built-in plugin system:
-  
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "rider-unstable-highlighting"</kbd> >
-  <kbd>Install Plugin</kbd>
-  
-- Manually:
-
-  Download the [latest release](https://github.com/izhangzhihao/rider-unstable-highlighting/releases/latest) and install it manually using
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+public class s
+{
+    public void test()
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+        }
+    }
+}
+```
 
 
----
-Plugin based on the [IntelliJ Platform Plugin Template][template].
+## get logs from the console
 
-[template]: https://github.com/JetBrains/intellij-platform-plugin-template
+```log
+............START..................
+CSharpFileImpl [namespace MyNamespace;
+
+public class s
+{
+    public void test()
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+        }
+    }
+}]
+...CSharpNamespaceDeclarationImpl [namespace MyNamespace;
+
+public class s
+{
+    public void test()
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+        }
+    }
+}] (*)
+......LeafPsiElement [namespace]
+......PsiWhiteSpaceImpl [ ]
+......LeafPsiElement [MyNamespace]
+......LeafPsiElement [;]
+......PsiWhiteSpaceImpl [
+]
+......PsiWhiteSpaceImpl [
+]
+......CSharpNamespaceBodyImpl [public class s
+{
+    public void test()
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+        }
+    }
+}]
+.........CSharpDummyDeclaration [public class s
+{
+    public void test()
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+        }
+    }
+}]
+............LeafPsiElement [public]
+............PsiWhiteSpaceImpl [ ]
+............LeafPsiElement [class]
+............PsiWhiteSpaceImpl [ ]
+............CSharpDeclarationIdentifier [s]
+...............LeafPsiElement [s]
+............PsiWhiteSpaceImpl [
+]
+............CSharpDummyBlockImpl [{
+    public void test()
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+        }
+    }
+}]
+...............LeafPsiElement [{]
+...............PsiWhiteSpaceImpl [
+]
+...............PsiWhiteSpaceImpl [    ]
+...............CSharpMethodDeclaration [public void test()
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+        }
+    }]
+..................LeafPsiElement [public]
+..................PsiWhiteSpaceImpl [ ]
+..................CSharpDeclarationIdentifier [void]
+.....................LeafPsiElement [void]
+..................PsiWhiteSpaceImpl [ ]
+..................CSharpDeclarationIdentifier [test]
+.....................LeafPsiElement [test]
+..................CSharpDummyNodeImpl [()]
+.....................LeafPsiElement [(]
+.....................LeafPsiElement [)]
+..................PsiWhiteSpaceImpl [
+]
+..................PsiWhiteSpaceImpl [    ]
+..................CSharpDummyBlockImpl [{
+        for (int i = 0; i < 5; ++i)
+        {
+        }
+    }]
+.....................LeafPsiElement [{]
+.....................PsiWhiteSpaceImpl [
+]
+.....................PsiWhiteSpaceImpl [        ]
+.....................CSharpDummyNodeImpl [for (int i = 0; i < 5; ++i)
+        {
+        }]
+........................LeafPsiElement [for]
+........................PsiWhiteSpaceImpl [ ]
+........................CSharpDummyNodeImpl [(int i = 0; i < 5; ++i)]
+...........................LeafPsiElement [(]
+...........................CSharpVarDeclarationStatement [int i = 0;]
+..............................CSharpDeclarationIdentifier [int]
+.................................LeafPsiElement [int]
+..............................PsiWhiteSpaceImpl [ ]
+..............................CSharpDeclarationIdentifier [i]
+.................................LeafPsiElement [i]
+..............................PsiWhiteSpaceImpl [ ]
+..............................LeafPsiElement [=]
+..............................PsiWhiteSpaceImpl [ ]
+..............................LeafPsiElement [0]
+..............................LeafPsiElement [;]
+...........................PsiWhiteSpaceImpl [ ]
+...........................CSharpStatementImpl [i < 5;]
+..............................LeafPsiElement [i]
+..............................PsiWhiteSpaceImpl [ ]
+..............................LeafPsiElement [<]
+..............................PsiWhiteSpaceImpl [ ]
+..............................LeafPsiElement [5]
+..............................LeafPsiElement [;]
+...........................PsiWhiteSpaceImpl [ ]
+...........................LeafPsiElement [++]
+...........................LeafPsiElement [i]
+...........................LeafPsiElement [)]
+........................PsiWhiteSpaceImpl [
+]
+........................PsiWhiteSpaceImpl [        ]
+........................CSharpDummyBlockImpl [{
+        }]
+...........................LeafPsiElement [{]
+...........................PsiWhiteSpaceImpl [
+]
+...........................PsiWhiteSpaceImpl [        ]
+...........................LeafPsiElement [}]
+.....................PsiWhiteSpaceImpl [
+]
+.....................PsiWhiteSpaceImpl [    ]
+.....................LeafPsiElement [}]
+...............PsiWhiteSpaceImpl [
+]
+...............LeafPsiElement [}]
+.............END...................
+```
+
+## edit file, like add new line after line 7 and delete the new line again
+
+now we should expect same PSI tree after editing,
+
+but found this in console:
+
+
+```log
+............START..................
+CSharpFileImpl [namespace MyNamespace;
+
+public class s
+{
+    public void test()
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+        }
+    }
+}]
+...CSharpNamespaceDeclarationImpl [namespace MyNamespace;
+
+public class s
+{
+    public void test()
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+        }
+    }
+}] (*)
+......LeafPsiElement [namespace]
+......PsiWhiteSpaceImpl [ ]
+......LeafPsiElement [MyNamespace]
+......LeafPsiElement [;]
+......PsiWhiteSpaceImpl [
+]
+......PsiWhiteSpaceImpl [
+]
+......CSharpNamespaceBodyImpl [public class s
+{
+    public void test()
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+        }
+    }
+}]
+.........CSharpDummyDeclaration [public class s
+{
+    public void test()
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+        }
+    }
+}]
+............LeafPsiElement [public]
+............PsiWhiteSpaceImpl [ ]
+............LeafPsiElement [class]
+............PsiWhiteSpaceImpl [ ]
+............CSharpDeclarationIdentifier [s]
+...............LeafPsiElement [s]
+............PsiWhiteSpaceImpl [
+]
+............CSharpDummyBlockImpl [{
+    public void test()
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+        }
+    }
+}]
+...............LeafPsiElement [{]
+...............PsiWhiteSpaceImpl [
+]
+...............PsiWhiteSpaceImpl [    ]
+...............CSharpMethodDeclaration [public void test()
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+        }
+    }]
+..................LeafPsiElement [public]
+..................PsiWhiteSpaceImpl [ ]
+..................CSharpDeclarationIdentifier [void]
+.....................LeafPsiElement [void]
+..................PsiWhiteSpaceImpl [ ]
+..................CSharpDeclarationIdentifier [test]
+.....................LeafPsiElement [test]
+..................CSharpDummyNodeImpl [()]
+.....................LeafPsiElement [(]
+.....................LeafPsiElement [)]
+..................PsiWhiteSpaceImpl [
+]
+..................PsiWhiteSpaceImpl [    ]
+..................CSharpDummyBlockImpl [{
+        for (int i = 0; i < 5; ++i)
+        {
+        }
+    }]
+.....................LeafPsiElement [{]
+.....................PsiWhiteSpaceImpl [
+]
+.....................PsiWhiteSpaceImpl [        ]
+.....................CSharpDummyNodeImpl [for (int i = 0;]
+........................LeafPsiElement [for]
+........................PsiWhiteSpaceImpl [ ]
+........................LeafPsiElement [(]
+........................LeafPsiElement [int]
+........................PsiWhiteSpaceImpl [ ]
+........................LeafPsiElement [i]
+........................PsiWhiteSpaceImpl [ ]
+........................LeafPsiElement [=]
+........................PsiWhiteSpaceImpl [ ]
+........................LeafPsiElement [0]
+........................LeafPsiElement [;]
+.....................PsiWhiteSpaceImpl [ ]
+.....................CSharpDummyNodeImpl [i < 5;]
+........................LeafPsiElement [i]
+........................PsiWhiteSpaceImpl [ ]
+........................LeafPsiElement [<]
+........................PsiWhiteSpaceImpl [ ]
+........................LeafPsiElement [5]
+........................LeafPsiElement [;]
+.....................PsiWhiteSpaceImpl [ ]
+.....................CSharpDummyNodeImpl [++i)]
+........................LeafPsiElement [++]
+........................LeafPsiElement [i]
+........................LeafPsiElement [)]
+.....................PsiWhiteSpaceImpl [
+]
+.....................PsiWhiteSpaceImpl [        ]
+.....................CSharpDummyBlockImpl [{
+        }]
+........................LeafPsiElement [{]
+........................PsiWhiteSpaceImpl [
+]
+........................PsiWhiteSpaceImpl [        ]
+........................LeafPsiElement [}]
+.....................PsiWhiteSpaceImpl [
+]
+.....................PsiWhiteSpaceImpl [    ]
+.....................LeafPsiElement [}]
+...............PsiWhiteSpaceImpl [
+]
+...............LeafPsiElement [}]
+.............END...................
+```
+
+## please compare them using https://www.diffchecker.com/text-compare/
