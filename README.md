@@ -1,3 +1,5 @@
+NOTICE: This issue has already been resolved by JetBrains, details: [RIDER-87202](https://youtrack.jetbrains.com/issue/RIDER-87202/Highlightings-for-C-code-disappear-when-editing-code)
+
 # step to re-produce
 
 ## run the project
